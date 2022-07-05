@@ -1,0 +1,82 @@
+body {
+    font-family: 'JetBrain Mono', Verdana, Geneva, Tahoma, sans-serif;
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex: 0;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h1,
+p {
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background-color: rgb(72, 72, 72);
+    color: antiquewhite;
+}
+
+.mainContent {
+    display: flex;
+    justify-content: center;
+    gap: 3%;
+    align-items: center;
+}
+
+.slideContainer {
+    display: flex;
+    flex: 0 1 150px;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    text-align: center;
+}
+
+.sketchpad {
+    padding: 0;
+    margin: 0;
+    width: 600px;
+    height: 600px;
+    border: 1px solid black;
+    display: grid;
+    align-self: center;
+}
+
+.applyButton{
+    padding:6px 10px;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.clearButton{
+    padding:6px 10px;
+    border-radius: 20px;
+    background-color: rgba(255, 0, 0, 0.3);
+}
+
+.applyButton:active, .clearButton:active {
+     transform: scale(.9);
+     transition: all 0.2s linear;
+     box-shadow: 0 3px 15px -2px; 
+    }
+
+footer {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(72, 72, 72);
+    color: antiquewhite;
+    padding: 16px;
+
+}

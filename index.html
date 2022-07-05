@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" lang="de" />
+    <title>Etch-a-Sketch</title>
+    <script src="./logic/app.js" defer></script>
+    <link rel="stylesheet" href="./style/app.css">
+</head>
+
+<body>
+    <header>
+
+        <h1>
+            Etch-a-Sketch
+        </h1>
+        <p>Will you be the next Picasso?</p>
+
+    </header>
+    <div class="mainContent">
+        <div class="slideContainer">
+            <p class="sliderValue">16x16 Field</p>
+            <input class="slider" type="range" min="2" max="64" value="16" step="1">
+            <button class="applyButton" type="submit">Apply</button>
+            <button class="clearButton" type="submit">Clear</button>
+        </div>
+        <div class="sketchpad">
+        </div>
+    </div>
+    <footer>Made with ... Love?</footer>
+</body>
+
+</html>
