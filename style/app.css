@@ -1,3 +1,4 @@
+
 body {
     font-family: 'JetBrain Mono', Verdana, Geneva, Tahoma, sans-serif;
     height: 100vh;
@@ -39,7 +40,7 @@ header {
     display: flex;
     flex: 0 1 150px;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
     justify-content: center;
     text-align: center;
 }
@@ -79,4 +80,17 @@ footer {
     color: antiquewhite;
     padding: 16px;
 
+}
+label {
+    display: flex;
+    height: 64px;
+    width: 64px;
+    justify-self: flex-start;
+    align-self: center;
+    border-radius: 50%;
+    border: 1px solid black;
+  }
+  
+#kb_selected_color{
+        visibility: hidden;
 }

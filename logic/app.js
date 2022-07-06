@@ -1,26 +1,29 @@
-let sketchgrid = document.querySelector(".sketchpad");
+let sketchGrid = document.querySelector(".sketchpad");
 let slider = document.querySelector(".slider");
 let sliderValue = document.querySelector(".sliderValue");
 let applyButton = document.querySelector(".applyButton");
 let clearButton = document.querySelector(".clearButton");
+let theInput = document.getElementById("kb_selected_color");
+let colorCircle=document.querySelector(".colorCircle");
+let theColor = theInput.value;
 let hoveredGridfields;
-
+let mouseclickInField = false;
+let penColor = "blue";
+colorCircle.style.backgroundColor=penColor;
 
 
 window.onload = loadGrid(slider.value);
 
 function loadGrid(gridSize) {
-    sketchgrid.innerHTML = ''
+    sketchGrid.innerHTML = ''
     for (let i = 0; i < (gridSize ** 2); i++) {
-        sketchgrid.setAttribute("style", `grid-template-columns: repeat(${gridSize}, 1fr);grid-template-rows: repeat(${gridSize}, 1fr); `)
-        let sketchgridfield = document.createElement("div");
-        sketchgridfield.classList.add("colorChangeable");
-        sketchgridfield.style.border = "1px solid #D4D4D4";
-        sketchgridfield.style.backgroundColor = "white";
-        sketchgrid.appendChild(sketchgridfield)
+        sketchGrid.setAttribute("style", `grid-template-columns: repeat(${gridSize}, 1fr);grid-template-rows: repeat(${gridSize}, 1fr); `)
+        let sketchGridField = document.createElement("div");
+        sketchGridField.classList.add("colorChangeable");
+        sketchGridField.style.border = "1px solid #D4D4D4";
+        sketchGridField.style.backgroundColor = "white";
+        sketchGrid.appendChild(sketchGridField)
     }
-    hoveredGridfields = document.querySelectorAll(".colorChangeable");
-    enableColoring(hoveredGridfields);
 }
 
 
@@ -35,17 +38,47 @@ applyButton.addEventListener("click", () => {
 
 clearButton.addEventListener("click", () => {
     hoveredGridfields.forEach((field) => {
-            field.style.backgroundColor = "white";
-        })
+        field.style.backgroundColor = "white";
+    })
 })
 
+hoveredGridfields = document.querySelectorAll(".colorChangeable");
 
-console.log(hoveredGridfields);
+sketchGrid.addEventListener("click", () => {
+    mouseclickInField = !mouseclickInField;
+    enableColoring(hoveredGridfields, mouseclickInField);
+    console.log("Status " + mouseclickInField)
+});
 
-function enableColoring(hoveredGridfields) {
+
+
+function enableColoring(hoveredGridfields, mouseclickInField) {
+    console.log(mouseclickInField)
     hoveredGridfields.forEach((field) => {
-        field.addEventListener("mouseover", (e) => {
-            field.style.backgroundColor = "blue";
-        })
+        if (mouseclickInField) {
+            field.addEventListener("mouseover", eventHandler)
+        } else {
+            field.removeEventListener("mouseover", eventHandler)
+        }
+
     })
 }
+
+// Farbe aus ColorPicker auslesen
+
+theInput.addEventListener("input", function () {
+    document.getElementById("hex").innerHTML = theInput.value;
+    penColor = theInput.value;
+    colorCircle.style.backgroundColor=penColor;
+}, false);
+
+
+function eventHandler(e) {
+    e.target.style.backgroundColor = penColor;
+}
+
+
+
+
+
+/**https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors */
