@@ -1,4 +1,3 @@
-
 body {
     font-family: 'JetBrain Mono', Verdana, Geneva, Tahoma, sans-serif;
     height: 100vh;
@@ -54,24 +53,54 @@ header {
     display: grid;
     align-self: center;
 }
+button{
+    box-shadow:rgba(0, 0, 0, 0.35) 0px 5px 15px
+}
 
-.applyButton{
-    padding:6px 10px;
+.applyButton {
+    padding: 6px 10px;
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.clearButton{
-    padding:6px 10px;
+.clearButton {
+    padding: 6px 10px;
     border-radius: 20px;
     background-color: rgba(255, 0, 0, 0.3);
 }
 
-.applyButton:active, .clearButton:active {
-     transform: scale(.9);
-     transition: all 0.2s linear;
-     box-shadow: 0 3px 15px -2px; 
-    }
+.applyDarkeningColorButton {
+    padding: 6px 10px;
+    border-radius: 20px;
+    color: white;
+    background: linear-gradient(90deg, rgba(0, 0, 255, 1) 0%, rgba(0, 0, 0, 1) 80%);
+}
+
+
+
+.applyDarkeningWhiteButton {
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 1) 80%);
+    color: white;
+}
+
+.applyRandomColorButton {
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: linear-gradient(to right, orange, yellow, green, cyan, blue, violet);
+    color: black;
+}
+
+.applyButton:active,
+.clearButton:active,
+.applyDarkeningColorButton:active,
+.applyDarkeningWhiteButton:active,
+.applyRandomColorButton:active {
+    transform: scale(.9);
+    transition: all 0.2s linear;
+    box-shadow: 0 3px 15px -2px;
+}
 
 footer {
     display: flex;
@@ -81,6 +110,7 @@ footer {
     padding: 16px;
 
 }
+
 label {
     display: flex;
     height: 64px;
@@ -88,9 +118,12 @@ label {
     justify-self: flex-start;
     align-self: center;
     border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border: 1px solid black;
-  }
-  
-#kb_selected_color{
-        visibility: hidden;
+}
+
+
+
+#kb_selected_color {
+    visibility: hidden;
 }

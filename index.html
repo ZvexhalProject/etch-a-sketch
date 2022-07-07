@@ -19,12 +19,21 @@
     </header>
     <div class="mainContent">
         <div class="slideContainer">
-                <label class="colorCircle"><input type="color" id="kb_selected_color" value="#0000FF"></label/>
+        
+                <p class="sliderInfo">Click on a field and start hovering to paint the canvas!</p>
+           
+            
+                <label class="colorCircle"><input type="color" id="kb_selected_color" value="#0000FF"></label />
                 <span id="hex">(#0000FF)</span>
-            <p class="sliderValue">16x16 Field</p>
-            <input class="slider" type="range" min="2" max="64" value="16" step="1">
-            <button class="applyButton" type="submit">Apply</button>
-            <button class="clearButton" type="submit">Clear</button>
+                <p class="sliderValue">16x16 Field</p>
+                <input class="slider" type="range" min="2" max="64" value="16" step="1">
+                <button class="applyButton" type="submit">Apply</button>
+                <button class="clearButton" type="submit">Clear</button>
+                <button class="applyDarkeningColorButton" type="submit">Darken Color</button>
+                <button class="applyDarkeningWhiteButton" type="submit">Darken White</button>
+                <button class="applyRandomColorButton" type="submit">Random Color</button>
+          
+
         </div>
         <div class="sketchpad">
         </div>

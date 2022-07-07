@@ -5,7 +5,16 @@ let applyButton = document.querySelector(".applyButton");
 let clearButton = document.querySelector(".clearButton");
 let theInput = document.getElementById("kb_selected_color");
 let colorCircle = document.querySelector(".colorCircle");
-let darkening = true;
+let applyDarkeningColorButton = document.querySelector(".applyDarkeningColorButton");
+let applyDarkeningWhiteButton = document.querySelector(".applyDarkeningWhiteButton");
+let applyRandomColorButton = document.querySelector(".applyRandomColorButton");
+let slideContainer = document.querySelector(".slideContainer")
+
+
+
+let rainbowColor = false;
+let darkeningColor = false;
+let darkeningWhite = false;
 let theColor = theInput.value;
 let hoveredGridfields;
 let mouseclickInField = false;
@@ -23,7 +32,7 @@ function loadGrid(gridSize) {
         let sketchGridField = document.createElement("div");
         sketchGridField.classList.add("colorChangeable");
         sketchGridField.style.border = "1px solid #D4D4D4";
-        sketchGridField.style.backgroundColor = "white";
+        sketchGridField.style.backgroundColor = "#FFFFFF";
         sketchGrid.appendChild(sketchGridField)
     }
 }
@@ -38,10 +47,38 @@ applyButton.addEventListener("click", () => {
     loadGrid(slider.value)
 })
 
+slideContainer.addEventListener("click", () => {
+    (darkeningColor) ? applyDarkeningColorButton.style.borderColor = "red": applyDarkeningColorButton.style.borderColor = "black";
+    (darkeningWhite) ? applyDarkeningWhiteButton.style.borderColor = "red": applyDarkeningWhiteButton.style.borderColor = "black";
+    (rainbowColor) ? applyRandomColorButton.style.borderColor = "red": applyRandomColorButton.style.borderColor ="black";
+
+})
+
 clearButton.addEventListener("click", () => {
+    darkeningWhite = false;
+    darkeningColor = false;
+    rainbowColor=false;
     hoveredGridfields.forEach((field) => {
-        field.style.backgroundColor = "white";
+        field.style.backgroundColor = "rgb(255, 255, 255)";
     })
+})
+
+applyDarkeningColorButton.addEventListener("click", () => {
+    darkeningColor = !darkeningColor;
+    darkeningWhite = false;
+    rainbowColor = false;
+})
+
+applyDarkeningWhiteButton.addEventListener("click", () => {
+    darkeningWhite = !darkeningWhite;
+    darkeningColor = false;
+    rainbowColor = false;
+})
+
+applyRandomColorButton.addEventListener("click", () => {
+    rainbowColor = !rainbowColor;
+    darkeningWhite = false;
+    darkeningColor = false;
 })
 
 hoveredGridfields = document.querySelectorAll(".colorChangeable");
@@ -57,46 +94,41 @@ sketchGrid.addEventListener("click", () => {
 function enableColoring(hoveredGridfields, mouseclickInField) {
     console.log(mouseclickInField)
     hoveredGridfields.forEach((field) => {
-        
-        if (mouseclickInField) {
-            field.addEventListener("mouseover", eventHandler)
-        } else {
-            field.removeEventListener("mouseover", eventHandler)
-        }
-
+        (mouseclickInField) ? field.addEventListener("mouseover", eventHandler): field.removeEventListener("mouseover", eventHandler);
     })
 }
 
-// Farbe aus ColorPicker auslesen
-
 theInput.addEventListener("input", function () {
-    document.getElementById("hex").innerHTML = theInput.value;
+    document.getElementById("hex").textContent = theInput.value.toUpperCase();
     penColor = theInput.value;
     colorCircle.style.backgroundColor = penColor;
+    applyDarkeningColorButton.style.background = `linear-gradient(90deg, ${penColor} 0%, #000000 80%)`
+
+
 }, false);
 
 
 function eventHandler(e) {
-    if (!(e.target.style.backgroundColor == "white") && darkening) {
-      e.target.style.backgroundColor=`${shadeColor(e.target.style.backgroundColor)}`;
-       
-    } else {
-        e.target.style.backgroundColor = penColor
-    }
-
+    (darkeningColor && e.target.style.backgroundColor != "rgb(255, 255, 255)") ? (e.target.style.backgroundColor = `${shadeColor(e.target.style.backgroundColor)}`) : (darkeningWhite) ? (e.target.style.backgroundColor = `${shadeColor(e.target.style.backgroundColor)}`) : (rainbowColor)? (e.target.style.backgroundColor = makeRandomColor()):(!darkeningColor && !darkeningWhite && !rainbowColor) ? e.target.style.backgroundColor = penColor: "";
 }
 
 
 function shadeColor(color) {
-    color = color.substring(4, color.length-1)
-         .replace(/ /g, '')
-         .split(',');
-         let R = (parseInt(color[0]-26)<=0?0:parseInt(color[0]-26));
-         let G = (parseInt(color[1]-26)<=0?0:parseInt(color[1]-26));
-         let B = (parseInt(color[2]-26)<=0?0:parseInt(color[2]-26));
+    let colorToBeShaded = hexToRGBArray(color)
+    let R = (parseInt(colorToBeShaded[0] - 26) <= 0 ? 0 : parseInt(colorToBeShaded[0] - 26));
+    let G = (parseInt(colorToBeShaded[1] - 26) <= 0 ? 0 : parseInt(colorToBeShaded[1] - 26));
+    let B = (parseInt(colorToBeShaded[2] - 26) <= 0 ? 0 : parseInt(colorToBeShaded[2] - 26));
+
     return RGBToHex(`rgb(${R}, ${G}, ${B})`);
 }
 
+function hexToRGBArray(hex) {
+    rgbArray = hex.substring(4, hex.length - 1)
+        .replace(/ /g, '')
+        .split(',');
+
+    return (rgbArray);
+}
 
 function RGBToHex(rgb) {
     // Choose correct separator
@@ -117,4 +149,10 @@ function RGBToHex(rgb) {
     return "#" + r + g + b;
 }
 
-
+function makeRandomColor() {
+    var c = '';
+    while (c.length < 6) {
+        c += (Math.random()).toString(16).substr(-6).substr(-1)
+    }
+    return '#' + c;
+}
